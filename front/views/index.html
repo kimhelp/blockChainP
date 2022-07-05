@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="/search" method="post" id="searchFrm">
+            <input id="searchInput" placeholder="HASH" style="width: 300px; height: 30px" type="text" />
+            <input type="submit" value="검색" style="width: 50px; height: 30px" />
+        </form>
+
+        <div>
+            {% for i in data %}
+            <ul>
+                <li style="list-style: none">{{i.number}}</li>
+                <li style="list-style: none">{{i.parentHash}}</li>
+                <li style="list-style: none">{{i.stateRoot}}</li>
+                <li style="list-style: none">{{i.hash}}</li>
+                <li style="list-style: none">{{i.timestamp}}</li>
+                <li style="list-style: none">{{i.difficulty}}</li>
+                <li style="list-style: none">{{i.nonce}}</li>
+            </ul>
+            {% endfor %}
+        </div>
+    </body>
+    <script type="text/javascript">
+        const searchFrm = document.querySelector('#searchFrm')
+        const searchInput = document.querySelector('#searchFrm > #searchInput')
+        searchFrm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const inputdata = searchInput.value
+            const body = { data: inputdata }
+            const response = await axios.post('http://localhost:4001/api/block/search', body)
+            console.log('나나나나', response.data.result[0].number)
+            if (response.data.errno == 0) {
+                location.href = `/search?${response.data.result[0].number}`
+            }
+        })
+    </script>
+</html>

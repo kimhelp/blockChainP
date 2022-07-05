@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        //import 문법을 사용할 수 있게 해줌
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "strict": true,
+        "baseUrl": ".",
+        "typeRoots": ["./node_moldules/@types", "./@types"],
+        //별명을 설정해서 절대경로로 쉽게 접근
+        "paths": {
+            "@core/*": ["src/core/*"],
+            "*": ["@types/*"]
+        }
+    },
+    "ts-node": {
+        "files": true,
+        "require": ["tsconfig-paths/register"]
+    }
+}
